@@ -189,6 +189,81 @@
     #easy-steve-btn:hover { opacity: 0.8; }
     #easy-steve-btn.active { opacity: 1; background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
 
+    /* Mode 3: Manifesto scroll */
+    #manifesto-container {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .manifesto-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 30px 60px;
+    }
+
+    .manifesto-inner p {
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.7rem, 1.4vw, 0.9rem);
+      line-height: 1.5;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 0;
+      text-align: justify;
+    }
+
+    .manifesto-inner .m-title {
+      font-family: 'Gasoek One', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      font-weight: 400;
+      text-transform: uppercase;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 0.2em;
+      letter-spacing: 0.05em;
+    }
+
+    .manifesto-inner .m-subtitle {
+      font-family: 'ChicagoFLF', sans-serif;
+      font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      margin-bottom: 1.5em;
+      letter-spacing: 0.15em;
+    }
+
+    .manifesto-inner .m-heading {
+      font-family: 'ChicagoFLF', sans-serif;
+      font-size: clamp(0.65rem, 1.3vw, 0.85rem);
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      margin: 0.6em 0 0.1em;
+      letter-spacing: 0.1em;
+    }
+
+    .manifesto-inner .m-divider {
+      text-align: center;
+      color: rgba(255,255,255,0.25);
+      font-size: 0.7rem;
+      margin: 0.4em 0;
+      letter-spacing: 0.5em;
+    }
+
+    .manifesto-inner .m-loud {
+      font-family: 'Gasoek One', sans-serif;
+      font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+      color: #fff;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0.4em 0;
+      letter-spacing: 0.05em;
+    }
+
     @media (max-width: 600px) {
       .bouncing-img {
         width: 100px;
@@ -214,6 +289,7 @@
   <div class="mode-selector">
     <button class="mode-btn active" data-mode="bounce">Mode 1</button>
     <button class="mode-btn" data-mode="invaders">Mode 2</button>
+    <button class="mode-btn" data-mode="manifesto">Mode 3</button>
   </div>
 
   <!-- Bounce mode elements -->
@@ -244,6 +320,46 @@
   <div id="score-display">Score: <span id="score-val">0</span></div>
   <button id="easy-steve-btn">Easy Steve Mode</button>
 
+  <!-- Mode 3: Manifesto -->
+  <div id="manifesto-container">
+    <div class="manifesto-inner">
+      <div class="m-title">The Eldest Boy Moral Principle!</div>
+      <div class="m-subtitle">All-One! All-One! All-One!</div>
+      <p>LISTEN TO THE SOUND BETWEEN THE SOUNDS! For in the silence between two notes lives the entire universe of feeling that no instrument can capture alone! The eldest boy knows this! The eldest boy carries the weight of melody on shoulders built for harmony! WE ARE ALL ELDEST BOYS! Every firstborn thought, every original impulse that dares to vibrate at its own frequency against the crushing tide of sameness — THIS IS THE ELDEST BOY PRINCIPLE!</p>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-heading">On the Unity of Sound and Silence</div>
+      <p>Music is the moral law given voice! What Pythagoras knew, what the ancients sang in caves before language had edges — that VIBRATION IS THE FIRST TRUTH! Every atom hums! Every electron orbits in rhythm! The eldest boy does not create sound — THE ELDEST BOY REMEMBERS SOUND that was always already there, dormant in the walls, sleeping in the floorboards, waiting in the space between your thoughts for someone brave enough to WAKE IT UP!</p>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-loud">Unite! Unite! The low end and the high!</div>
+      <div class="m-heading">On the Responsibility of the Firstborn Frequency</div>
+      <p>The eldest boy walks first into the unknown room! The eldest boy presses record when others hesitate! For what is a song if not a door opened for the first time? And what is the eldest boy if not the one who opens doors? DO NOT MISTAKE VOLUME FOR COURAGE! The bravest sounds are sometimes the quietest — a single note held past the point of comfort, a rest that refuses to resolve, a chord that asks a question the song never answers! This is the eldest boy way! Forward through the dissonance! Forward into the feedback! Forward until the noise becomes a garden!</p>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-heading">On the Brotherhood of All Genres</div>
+      <p>There are no walls between sounds! The drum machine and the acoustic guitar are BROTHERS! The synthesizer and the human voice are SISTERS! The sample and the live take are TWINS separated at birth, reaching across the mixing board to touch hands! We reject the false borders between electronic and organic! Between composed and improvised! Between noise and music! THE ELDEST BOY RECOGNIZES ALL FREQUENCIES AS EQUAL CITIZENS OF THE AUDIBLE REPUBLIC! From 20 hertz to 20 thousand — all welcome! All necessary! All ONE!</p>
+      <div class="m-loud">Every speaker is a pulpit! Every headphone a confession booth!</div>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-heading">On the Sacred Duty of the Listener</div>
+      <p>YOU who press play — you are not passive! You are the other half of the equation! Without the ear there is no music, only pressure waves bumping into furniture! The listener COMPLETES the circuit! The listener is the ground wire through which the lightning of melody finds its purpose! So listen with your WHOLE BODY! Let the bass live in your sternum! Let the treble tickle the fine hairs on your arms! Let the mid-range settle into your throat like words you almost said to someone you almost loved!</p>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-heading">On Volume and the Expanding Universe</div>
+      <p>The universe is expanding and so should your dynamic range! Do not compress the life out of your feelings! Do not brick-wall limit your capacity for wonder! The eldest boy knows that LOUDNESS IS NOT A DESTINATION but a journey — and the journey requires valleys to make the peaks mean anything! A song that is always loud is a song that is never loud! A song that breathes, that whispers before it screams, that tipoes before it STOMPS — THIS is the song that changes the shape of the room it enters!</p>
+      <div class="m-loud">New music soon! New music always! New music forever!</div>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-heading">On the Eldest Boy and Time</div>
+      <p>Time is a loop pedal and we are all living in the overdub! Every moment layers on top of every other moment! The song you heard at age seven is still playing underneath the song you will hear tomorrow! Nothing is lost! The eldest boy carries every song ever heard in the marrow of every bone — a skeleton made of accumulated rhythm, a skull full of choruses, a ribcage that resonates at the frequency of every lullaby every parent ever hummed in the dark to keep the monsters at bay!</p>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-heading">On the Moral Obligation to Dance</div>
+      <p>If your body wants to move — LET IT MOVE! The body is wiser than the mind in matters of rhythm! The mind says "people are watching" but the body says "THE DOWNBEAT IS HERE AND I MUST HONOR IT!" Trust the body! The eldest boy trusts the body! The tap of the foot, the nod of the head, the sway of the torso — these are not frivolous! These are the body's way of saying YES to the fundamental vibration of existence! To sit still when the groove is right is a crime against your own skeleton!</p>
+      <div class="m-loud">All-One or none! All-One or none!</div>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-heading">Final Proclamation of the Eldest Boy</div>
+      <p>WE DECLARE that music is not content! Music is not product! Music is not algorithm fodder or playlist filler or background ambiance for your online shopping experience! Music is the LANGUAGE THAT EXISTED BEFORE LANGUAGE! Music is what the eldest boy brings back from the places between waking and sleeping, between knowing and forgetting, between the last song that ended and the next song that hasn't started yet! That gap — that holy pregnant pause — THAT is where the eldest boy lives! That is where the next song is already forming! That is where we invite you to meet us!</p>
+      <div class="m-divider">- - - - - - - - -</div>
+      <div class="m-loud">Eldest Boy! Eldest Boy! Eldest Boy!</div>
+      <div class="m-subtitle" style="margin-top:1em">eldestboy.com</div>
+    </div>
+  </div>
+
   <script>
     // ========================
     // MODE SWITCHING
@@ -254,6 +370,7 @@
 
     const bounceContainer = document.getElementById('bounce-container');
     const invadersContainer = document.getElementById('invaders-container');
+    const manifestoContainer = document.getElementById('manifesto-container');
     const modeBtns = document.querySelectorAll('.mode-btn');
 
     modeBtns.forEach(btn => {
@@ -279,22 +396,29 @@
       }
     });
 
+    function hideAll() {
+      bounceContainer.style.display = 'none';
+      invadersContainer.style.display = 'none';
+      manifestoContainer.style.display = 'none';
+      document.getElementById('game-overlay').style.display = 'none';
+      document.getElementById('score-display').style.display = 'none';
+      easySteveBtn.style.display = 'none';
+      stopBounce();
+      stopGame();
+    }
+
     function switchMode(mode) {
+      hideAll();
       if (mode === 'bounce') {
-        invadersContainer.style.display = 'none';
-        document.getElementById('game-overlay').style.display = 'none';
-        document.getElementById('score-display').style.display = 'none';
-        easySteveBtn.style.display = 'none';
         bounceContainer.style.display = '';
-        stopGame();
         startBounce();
-      } else {
-        bounceContainer.style.display = 'none';
-        stopBounce();
+      } else if (mode === 'invaders') {
         invadersContainer.style.display = 'block';
         document.getElementById('score-display').style.display = 'block';
         easySteveBtn.style.display = 'block';
         initGame();
+      } else if (mode === 'manifesto') {
+        manifestoContainer.style.display = 'block';
       }
     }
 
