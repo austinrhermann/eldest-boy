@@ -29,7 +29,7 @@
       object-fit: contain;
       border-radius: 8px;
       opacity: 1;
-      pointer-events: none;
+      cursor: pointer;
     }
 
     .center-text {
@@ -128,6 +128,8 @@
   <span id="word3" class="bouncing-word">Soon</span>
 
   <script>
+    const bouncers = [];
+
     class Bouncer {
       constructor(el, vx, vy, rotSpeed) {
         this.el = el;
@@ -170,17 +172,58 @@
     const word2 = document.getElementById('word2');
     const word3 = document.getElementById('word3');
 
-    let b1, b2, w1, w2, w3;
-
     function randRange(min, max) {
       return min + Math.random() * (max - min);
+    }
+
+    function splitVideo(bouncer) {
+      const oldEl = bouncer.el;
+      const oldWidth = oldEl.offsetWidth;
+      const newWidth = oldWidth / 2;
+
+      // Remove old bouncer from array
+      const idx = bouncers.indexOf(bouncer);
+      if (idx !== -1) bouncers.splice(idx, 1);
+      oldEl.remove();
+
+      // Create two new videos at half size
+      for (let i = 0; i < 2; i++) {
+        const video = document.createElement('video');
+        video.className = 'bouncing-img';
+        video.src = oldEl.src;
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.style.width = newWidth + 'px';
+        document.body.appendChild(video);
+
+        // Offset position slightly so they separate
+        const offsetX = (i === 0 ? -newWidth * 0.6 : newWidth * 0.6);
+        const offsetY = (i === 0 ? -newWidth * 0.4 : newWidth * 0.4);
+
+        const speed = Math.sqrt(bouncer.vx * bouncer.vx + bouncer.vy * bouncer.vy);
+        const angle = Math.atan2(bouncer.vy, bouncer.vx) + (i === 0 ? -0.8 : 0.8);
+        const newVx = speed * Math.cos(angle);
+        const newVy = speed * Math.sin(angle);
+
+        const b = new Bouncer(video, newVx, newVy, bouncer.rotSpeed * (i === 0 ? 1.2 : -1.2));
+        b.x = Math.max(0, Math.min(bouncer.x + offsetX, window.innerWidth - newWidth));
+        b.y = Math.max(0, Math.min(bouncer.y + offsetY, window.innerHeight - newWidth));
+        b.angle = bouncer.angle;
+
+        // Add click handler for further splitting
+        video.addEventListener('click', () => splitVideo(b));
+
+        bouncers.push(b);
+      }
     }
 
     function init() {
       const speed1 = randRange(0.3, 0.6);
       const speed2 = randRange(0.3, 0.6);
-      b1 = new Bouncer(img1, speed1, randRange(0.3, 0.5), randRange(0.1, 0.2));
-      b2 = new Bouncer(img2, -speed2, randRange(0.3, 0.5), -randRange(0.1, 0.2));
+      const b1 = new Bouncer(img1, speed1, randRange(0.3, 0.5), randRange(0.1, 0.2));
+      const b2 = new Bouncer(img2, -speed2, randRange(0.3, 0.5), -randRange(0.1, 0.2));
 
       // Place images in opposite quadrants
       const vw = window.innerWidth;
@@ -190,10 +233,17 @@
       b2.x = randRange(vw * 0.5, vw - img2.offsetWidth);
       b2.y = randRange(vh * 0.5, vh - img2.offsetHeight);
 
+      // Add click handlers for splitting
+      img1.addEventListener('click', () => splitVideo(b1));
+      img2.addEventListener('click', () => splitVideo(b2));
+
+      bouncers.push(b1, b2);
+
       // Bouncing words (no rotation)
-      w1 = new Bouncer(word1, randRange(0.3, 0.7), randRange(0.2, 0.5), 0);
-      w2 = new Bouncer(word2, -randRange(0.3, 0.7), randRange(0.3, 0.6), 0);
-      w3 = new Bouncer(word3, randRange(0.2, 0.5), -randRange(0.3, 0.6), 0);
+      const w1 = new Bouncer(word1, randRange(0.3, 0.7), randRange(0.2, 0.5), 0);
+      const w2 = new Bouncer(word2, -randRange(0.3, 0.7), randRange(0.3, 0.6), 0);
+      const w3 = new Bouncer(word3, randRange(0.2, 0.5), -randRange(0.3, 0.6), 0);
+      bouncers.push(w1, w2, w3);
     }
 
     function collidePair(a, b) {
@@ -233,42 +283,34 @@
     }
 
     function collideAll() {
-      const all = [b1, b2, w1, w2, w3];
-      for (let i = 0; i < all.length; i++) {
-        for (let j = i + 1; j < all.length; j++) {
-          collidePair(all[i], all[j]);
+      for (let i = 0; i < bouncers.length; i++) {
+        for (let j = i + 1; j < bouncers.length; j++) {
+          collidePair(bouncers[i], bouncers[j]);
         }
       }
     }
 
     function animate() {
       collideAll();
-      b1.update();
-      b2.update();
-      w1.update();
-      w2.update();
-      w3.update();
+      for (const b of bouncers) b.update();
       requestAnimationFrame(animate);
     }
 
-    // Wait for images/video to load so offsetWidth/Height are correct
+    // Wait for videos to load so offsetWidth/Height are correct
     Promise.all([
       img1.readyState >= 1 ? Promise.resolve() : new Promise(r => img1.addEventListener('loadedmetadata', r, { once: true })),
       img2.readyState >= 1 ? Promise.resolve() : new Promise(r => img2.addEventListener('loadedmetadata', r, { once: true })),
     ]).then(() => {
-      // Offset the second video's playback time
-      img2.addEventListener('loadedmetadata', () => {
-        img2.currentTime = img2.duration / 2;
-      }, { once: true });
+      img2.currentTime = img2.duration / 2;
       init();
       animate();
     });
 
     window.addEventListener('resize', () => {
-      b1.x = Math.min(b1.x, window.innerWidth - img1.offsetWidth);
-      b1.y = Math.min(b1.y, window.innerHeight - img1.offsetHeight);
-      b2.x = Math.min(b2.x, window.innerWidth - img2.offsetWidth);
-      b2.y = Math.min(b2.y, window.innerHeight - img2.offsetHeight);
+      for (const b of bouncers) {
+        b.x = Math.min(b.x, window.innerWidth - b.el.offsetWidth);
+        b.y = Math.min(b.y, window.innerHeight - b.el.offsetHeight);
+      }
     });
   </script>
 </body>
